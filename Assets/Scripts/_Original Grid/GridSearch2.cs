@@ -1,4 +1,4 @@
-﻿  using System;
+  using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +7,14 @@ using UnityEngine;
 /// <summary>
 /// Source https://github.com/lordjesus/Packt-Introduction-to-graph-algorithms-for-game-developers
 /// </summary>
-public class GridSearch {
+public class GridSearch2 {
 
     public struct SearchResult
     {
         public List<Point> Path { get; set; }
     }
 
-    public static List<Point> AStarSearch(Grid grid, Point startPosition, Point endPosition, bool isAgent = false)
+    public static List<Point> AStarSearch(Grid2 grid, Point startPosition, Point endPosition, bool isAgent = false)
     {
         List<Point> path = new List<Point>();
 
