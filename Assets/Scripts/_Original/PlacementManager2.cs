@@ -32,7 +32,7 @@ public class PlacementManager2 : MonoBehaviour
         return CheckIfPositionOfType(position, CellType2.Empty); // tipe empty adalah ketika grid kosong
     }
 
-    private bool CheckIfPositionOfType(Vector3Int position, CellType2 type)  // check tipe dari grid 
+    public bool CheckIfPositionOfType(Vector3Int position, CellType2 type)  // check tipe dari grid 
     {
        return grid[position.x, position.z].Item1 == type;
     }
@@ -110,9 +110,9 @@ public class PlacementManager2 : MonoBehaviour
 
     internal List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition)  // untuk menggambar jalan
     {
-        var resultPath = GridSearch2.AStarSearch(grid,new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z)); // menggunakan astar untuk mendapatkan jarak dari ujung ke ujung jalan
+        var resultPath = GridSearch2.AStarSearch(grid,new Point2(startPosition.x, startPosition.z), new Point2(endPosition.x, endPosition.z)); // menggunakan astar untuk mendapatkan jarak dari ujung ke ujung jalan
         List<Vector3Int> path = new List<Vector3Int>(); // membuat array path
-        foreach (Point p in resultPath) 
+        foreach (Point2 p in resultPath) 
         {
             path.Add(new Vector3Int(p.X, 0, p.Y)); // memasukkan path yang dihasilkan astar ke dalam array
         }
@@ -147,8 +147,31 @@ public class PlacementManager2 : MonoBehaviour
     //     }
     // }
 
-    internal Vector3Int getRandomGridPosition() {   // buat cari grid random
+    internal Vector3Int GetRandomGridPosition() {   // buat cari grid random
     Vector3Int randomPos = new Vector3Int(UnityEngine.Random.Range(0, width - 1), 0, UnityEngine.Random.Range(0, height - 1));
      return randomPos;
+    }
+
+    internal void RemoveTemporaryStructure(Vector3Int position)
+    {
+        tempRoad.Clear();
+        if (structureDictionary.ContainsKey(position))
+        {
+            grid[position.x, position.z] = Tuple.Create(CellType2.Empty,0);    // membuat grid yang dituju bertipe bangunan
+        
+            structureDictionary[position].RemoveModel();
+            tempRoad.Add(position,null); // memasukkan bangunan yang dibuat ke array preview
+            structureDictionary.Remove(position);
+        }
+    }
+
+    internal void RemoveTempStructureFromDictionary()
+    {
+        foreach (var structure in tempRoad)
+        {
+            structureDictionary.Remove(structure.Key);
+            // DestroyNatureAt(structure.Key); // menghancurkan pohon ketika preview dibuat
+        }
+        tempRoad.Clear();
     }
 }

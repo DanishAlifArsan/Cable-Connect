@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Source https://github.com/lordjesus/Packt-Introduction-to-graph-algorithms-for-game-developers
@@ -21,9 +22,9 @@ public class Point2
         {
             return false;
         }
-        if (obj is Point)
+        if (obj is Point2)
         {
-            Point p = obj as Point;
+            Point2 p = obj as Point2;
             return this.X == p.X && this.Y == p.Y;
         }
         return false;
@@ -63,8 +64,8 @@ public class Grid2
     private int _height;
     public int Height { get { return _height; } }
 
-    private List<Point> _roadList = new List<Point>();
-    private List<Point> _specialStructure = new List<Point>();
+    private List<Point2> _roadList = new List<Point2>();
+    private List<Point2> _specialStructure = new List<Point2>();
 
     public Grid2(int width, int height)
     {
@@ -91,19 +92,19 @@ public class Grid2
         {
             if (value.Item1 == CellType2.Road)
             {
-                _roadList.Add(new Point(i, j));
+                _roadList.Add(new Point2(i, j));
             }
             else
             {
-                _roadList.Remove(new Point(i, j));
+                _roadList.Remove(new Point2(i, j));
             }
             if (value.Item1 == CellType2.SpecialStructure)
             {
-                _specialStructure.Add(new Point(i, j));
+                _specialStructure.Add(new Point2(i, j));
             }
             else
             {
-                _specialStructure.Remove(new Point(i, j));
+                _specialStructure.Remove(new Point2(i, j));
             }
             _grid[i, j] = value;
         }
@@ -113,58 +114,63 @@ public class Grid2
     {
         if (aiAgent)
         {
-            return cellType == CellType2.Road;
+            // return cellType == CellType2.Road;
+            return cellType == CellType2.None;
         }
         return cellType == CellType2.Empty || cellType == CellType2.Road;
     }
 
-    public Point GetRandomRoadPoint()
+    public Point2 GetRandomRoadPoint()
     {
-        Random rand = new Random();
+        System.Random rand = new System.Random();
         return _roadList[rand.Next(0, _roadList.Count - 1)];
     }
 
-    public Point GetRandomSpecialStructurePoint()
+    public Point2 GetRandomSpecialStructurePoint()
     {
-        Random rand = new Random();
+        System.Random rand = new System.Random();
         return _roadList[rand.Next(0, _roadList.Count - 1)];
     }
 
-    public List<Point> GetAdjacentCells(Point cell, bool isAgent)
+    public List<Point2> GetAdjacentCells(Point2 cell, bool isAgent)
     {
         return GetWakableAdjacentCells((int)cell.X, (int)cell.Y, isAgent);
     }
 
-    public float GetCostOfEnteringCell(Point cell)
+    public float GetCostOfEnteringCell(Point2 cell)
     {
         return 1;
     }
 
-    public List<Point> GetAllAdjacentCells(int x, int y)
+    public int GetColorOfCell(int x, int y) {
+        return _grid[x,y].Item2;
+    }
+
+    public List<Point2> GetAllAdjacentCells(int x, int y)
     {
-        List<Point> adjacentCells = new List<Point>();
+        List<Point2> adjacentCells = new List<Point2>();
         if (x > 0)
         {
-            adjacentCells.Add(new Point(x - 1, y));
+            adjacentCells.Add(new Point2(x - 1, y));
         }
         if (x < _width - 1)
         {
-            adjacentCells.Add(new Point(x + 1, y));
+            adjacentCells.Add(new Point2(x + 1, y));
         }
         if (y > 0)
         {
-            adjacentCells.Add(new Point(x, y - 1));
+            adjacentCells.Add(new Point2(x, y - 1));
         }
         if (y < _height - 1)
         {
-            adjacentCells.Add(new Point(x, y + 1));
+            adjacentCells.Add(new Point2(x, y + 1));
         }
         return adjacentCells;
     }
 
-    public List<Point> GetWakableAdjacentCells(int x, int y, bool isAgent)
+    public List<Point2> GetWakableAdjacentCells(int x, int y, bool isAgent)
     {
-        List<Point> adjacentCells = GetAllAdjacentCells(x, y);
+        List<Point2> adjacentCells = GetAllAdjacentCells(x, y);
         for (int i = adjacentCells.Count - 1; i >= 0; i--)
         {
             if(IsCellWakable(_grid[adjacentCells[i].X, adjacentCells[i].Y].Item1, isAgent)==false)
@@ -175,9 +181,9 @@ public class Grid2
         return adjacentCells;
     }
 
-    public List<Point> GetAdjacentCellsOfType(int x, int y, CellType2 type)
+    public List<Point2> GetAdjacentCellsOfType(int x, int y, CellType2 type)
     {
-        List<Point> adjacentCells = GetAllAdjacentCells(x, y);
+        List<Point2> adjacentCells = GetAllAdjacentCells(x, y);
         for (int i = adjacentCells.Count - 1; i >= 0; i--)
         {
             if (_grid[adjacentCells[i].X, adjacentCells[i].Y].Item1 != type)
@@ -188,9 +194,9 @@ public class Grid2
         return adjacentCells;
     }
 
-    public List<Point> GetAdjacentCellsOfColor(int x, int y, int color)
+    public List<Point2> GetAdjacentCellsOfColor(int x, int y, int color)
     {
-        List<Point> adjacentCells = GetAllAdjacentCells(x, y);
+        List<Point2> adjacentCells = GetAllAdjacentCells(x, y);
         for (int i = adjacentCells.Count - 1; i >= 0; i--)
         {
             if (_grid[adjacentCells[i].X, adjacentCells[i].Y].Item2 != color)

@@ -23,6 +23,13 @@ public class StructureModel2 : MonoBehaviour
         structure.GetComponent<MeshRenderer>().material.color = GetColor(colorCode);
     }
 
+    public void RemoveModel() {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     private Color GetColor(int colorCode) {
         switch (colorCode)
         {

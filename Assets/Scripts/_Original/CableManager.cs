@@ -10,9 +10,11 @@ public class CableManager : MonoBehaviour
     public PlacementManager2 placementManager;
     public List<Vector3Int> tempPlacement = new List<Vector3Int>(); // list yang berisi jalan
     public List<Vector3Int> cablePositionToCheck = new List<Vector3Int>();   // list yang berisi jalan untuk dicek arahnya
+    public List<Vector3Int> tempRemove = new List<Vector3Int>();
 
     private Vector3Int startPosition;   // posisi ujung awal jalan
     private bool placementMode = false; // variabel yang ngecek apakah sekarang lagi naruh jalan atau enggak
+    private bool removeMode = false; 
 
     public CableFixer cableFixer;
 
@@ -33,7 +35,6 @@ public class CableManager : MonoBehaviour
         if (!placementMode) // kalau lagi gak naruh, mulai menaruh jalan
         {
             cableColor = GetCableColor(position);
-            Debug.Log(cableColor);
             // reset isi dari list
             tempPlacement.Clear();
             cablePositionToCheck.Clear();
@@ -68,7 +69,7 @@ public class CableManager : MonoBehaviour
             }
             // FixCablePrefabs();  // apply pergantian arah jalan
         }
-
+        
         FixCablePrefabs();  // apply pergantian arah jalan
     }
 
@@ -159,6 +160,53 @@ public class CableManager : MonoBehaviour
             AudioPlayer.instance.PlayPlacementSound();   
         }
         tempPlacement.Clear();
+        startPosition = Vector3Int.zero; // reset posisi ujung jalan
+    }
+
+    internal void RemoveCable(Vector3Int position)
+    {
+        if (!placementManager.CheckIfPositionOfType(position, CellType2.Road))
+        {
+            return;
+        }
+
+        if (!removeMode)
+        {
+            // reset isi dari list
+            tempRemove.Clear();
+            cablePositionToCheck.Clear();
+
+            removeMode = true; 
+            startPosition = position;   // mendapatkan posisi ujung dari jalan
+
+            tempRemove.Add(position);    
+            placementManager.RemoveTemporaryStructure(position);  // generate preview jalan
+        } else {
+            // placementManager.RemoveAllTempStructures(); // menghapus preview
+            tempRemove.Clear();
+
+            cablePositionToCheck.Clear();    // reset list jalan yang buat diperbaiki
+
+            tempRemove = placementManager.GetPathBetween(startPosition, position);   // mendapatkan jarak dari ujung ke ujung jarak
+
+            foreach (var tempPos in tempRemove)  // cek apakah di grid preview kosong
+            { 
+                placementManager.RemoveTemporaryStructure(tempPos);   // kalau kosong, generate preview
+            }
+        }
+        
+        FixCablePrefabs();  // apply pergantian arah jalan
+    }
+
+    internal void FinishRemove()
+    {
+        removeMode = false;  // set placement mode jadi false
+        placementManager.RemoveTempStructureFromDictionary();    // memasukkan jalan ke list
+        if (tempRemove.Count > 0)
+        {
+            AudioPlayer.instance.PlayPlacementSound();   
+        }
+        tempRemove.Clear();
         startPosition = Vector3Int.zero; // reset posisi ujung jalan
     }
 }

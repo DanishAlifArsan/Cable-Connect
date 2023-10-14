@@ -2,32 +2,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SVS;
+using TMPro;
 using UnityEngine;
 
 public class GameManager2 : MonoBehaviour
 {
     public InputManager2 inputManager;
     public CableManager cableManager;
-    // public UIController uIController;
+    public UiController2 uIController;
     public StructureManager2 structureManager;
+    
+    [SerializeField] private TextMeshProUGUI text;
 
     private void Start() {
-        // uIController.OnRoadPlacement += RoadPlacementHandler;
-        // uIController.onHousePlacement += HousePlacementHandler;
-        // uIController.OnSpecialPlacement += SpecialPlacementHolder;
+        uIController.OnCablePlacement += CablePlacementHandler;
+        uIController.onCableRemove += cableRemoveHandler;
         CablePlacementHandler();
     }
 
-    private void HousePlacementHandler()    // handler untuk menaruh bangunan
-    {
-        ClearInputAction();
-        inputManager.OnMouseClick += structureManager.PlaceHouse;
+    private void Update() {
+        text.text = "Langkah : " + inputManager.GetNumberOfMoves(); // menampilkan jumlah langkah
     }
 
-    private void SpecialPlacementHolder()   // handler untuk menaruh bangunan
+    private void cableRemoveHandler()   // handler untuk hapus kabel
     {
         ClearInputAction();
-        inputManager.OnMouseClick += structureManager.PlaceSpecial;
+        inputManager.OnMouseClick += cableManager.RemoveCable; //kalau mouse diklik, jalannya dipasang
+        inputManager.OnMouseHold += cableManager.RemoveCable;  //kalau mouse dihold, munculin preview jalan
+        inputManager.OnMouseUp += cableManager.FinishRemove;    //kalau mouse dilepas, preview jalan hilang
     }
 
     private void CablePlacementHandler() //hanlder untuk menaruh jalan

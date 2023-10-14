@@ -13,6 +13,8 @@ public class InputManager2 : MonoBehaviour
 
     public LayerMask groundLayer;
 
+    private int move = 0;
+
     private void Update() {
         CheckClickDownEvent();
         CheckClickUpEvent();
@@ -58,7 +60,13 @@ public class InputManager2 : MonoBehaviour
             if (position != null)
             {
                 OnMouseClick?.Invoke(position.Value);
+                
+                move++; //buat menghitung langkah
             }
         }
+    }
+
+    public int GetNumberOfMoves() { //buat menghitung langkah
+        return move;
     }
 }

@@ -11,17 +11,17 @@ public class GridSearch2 {
 
     public struct SearchResult
     {
-        public List<Point> Path { get; set; }
+        public List<ContactPoint2D> Path { get; set; }
     }
 
-    public static List<Point> AStarSearch(Grid2 grid, Point startPosition, Point endPosition, bool isAgent = false)
+    public static List<Point2> AStarSearch(Grid2 grid, Point2 startPosition, Point2 endPosition, bool isAgent = false)
     {
-        List<Point> path = new List<Point>();
+        List<Point2> path = new List<Point2>();
 
-        List<Point> positionsTocheck = new List<Point>();
-        Dictionary<Point, float> costDictionary = new Dictionary<Point, float>();
-        Dictionary<Point, float> priorityDictionary = new Dictionary<Point, float>();
-        Dictionary<Point, Point> parentsDictionary = new Dictionary<Point, Point>();
+        List<Point2> positionsTocheck = new List<Point2>();
+        Dictionary<Point2, float> costDictionary = new Dictionary<Point2, float>();
+        Dictionary<Point2, float> priorityDictionary = new Dictionary<Point2, float>();
+        Dictionary<Point2, Point2> parentsDictionary = new Dictionary<Point2, Point2>();
 
         positionsTocheck.Add(startPosition);
         priorityDictionary.Add(startPosition, 0);
@@ -30,7 +30,7 @@ public class GridSearch2 {
 
         while (positionsTocheck.Count > 0)
         {
-            Point current = GetClosestVertex(positionsTocheck, priorityDictionary);
+            Point2 current = GetClosestVertex(positionsTocheck, priorityDictionary);
             positionsTocheck.Remove(current);
             if (current.Equals(endPosition))
             {
@@ -38,7 +38,7 @@ public class GridSearch2 {
                 return path;
             }
 
-            foreach (Point neighbour in grid.GetAdjacentCells(current, isAgent))
+            foreach (Point2 neighbour in grid.GetAdjacentCells(current, isAgent))
             {
                 float newCost = costDictionary[current] + grid.GetCostOfEnteringCell(neighbour);
                 if (!costDictionary.ContainsKey(neighbour) || newCost < costDictionary[neighbour])
@@ -56,10 +56,10 @@ public class GridSearch2 {
         return path;
     }
 
-    private static Point GetClosestVertex(List<Point> list, Dictionary<Point, float> distanceMap)
+    private static Point2 GetClosestVertex(List<Point2> list, Dictionary<Point2, float> distanceMap)
     {
-        Point candidate = list[0];
-        foreach (Point vertex in list)
+        Point2 candidate = list[0];
+        foreach (Point2 vertex in list)
         {
             if (distanceMap[vertex] < distanceMap[candidate])
             {
@@ -69,15 +69,15 @@ public class GridSearch2 {
         return candidate;
     }
 
-    private static float ManhattanDiscance(Point endPos, Point point)
+    private static float ManhattanDiscance(Point2 endPos, Point2 point)
     {
         return Math.Abs(endPos.X - point.X) + Math.Abs(endPos.Y - point.Y);
     }
 
-    public static List<Point> GeneratePath(Dictionary<Point, Point> parentMap, Point endState)
+    public static List<Point2> GeneratePath(Dictionary<Point2, Point2> parentMap, Point2 endState)
     {
-        List<Point> path = new List<Point>();
-        Point parent = endState;
+        List<Point2> path = new List<Point2>();
+        Point2 parent = endState;
         while (parent != null && parentMap.ContainsKey(parent))
         {
             path.Add(parent);

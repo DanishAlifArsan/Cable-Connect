@@ -14,44 +14,50 @@ public class StructureManager2 : MonoBehaviour
     private float[] houseWeights, specialWeights; //weight dari bangunan
 
     [SerializeField] private float structureSpawnTimer;
+    [SerializeField] private int maxStructureCount;
+    private int structureCount = 0;
     private float structureSpawnCooldown;
 
     int randomColor = 0;
 
     private void Start() {
-        randomColor = GetRandomColor();
-        structureSpawnCooldown = 0;
-        PlaceHouse(placementManager.getRandomGridPosition());
-        PlaceSpecial(placementManager.getRandomGridPosition());
+        PlaceStructure();
     }
 
     private void Update() {
         structureSpawnCooldown += Time.deltaTime;
          if (structureSpawnCooldown >= structureSpawnTimer)
          {
-            randomColor = GetRandomColor();
-            structureSpawnCooldown = 0;
-            PlaceHouse(placementManager.getRandomGridPosition());
-            PlaceSpecial(placementManager.getRandomGridPosition());
+            PlaceStructure();
          }
     }
 
-    public void PlaceHouse(Vector3Int position) {   // buat naruh bangunan
-        if (CheckPositionBeforePlacement(position))
+    private void PlaceStructure() {
+        Vector3Int housePos = placementManager.GetRandomGridPosition();
+        Vector3Int specialPos = placementManager.GetRandomGridPosition();
+        if (CheckPositionBeforePlacement(housePos) && CheckPositionBeforePlacement(specialPos) && structureCount < maxStructureCount )
         {
+            structureCount++;
+            randomColor = GetRandomColor();
+            structureSpawnCooldown = 0;
+            PlaceHouse(housePos);
+            PlaceSpecial(specialPos);
+        }
+    }
+    public void PlaceHouse(Vector3Int position) {   // buat naruh bangunan
+       
             placementManager.PlaceObjectOnTheMap(position, housePrefab, CellType2.Structure, randomColor);
             // housePrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
             AudioPlayer.instance.PlayPlacementSound();
-        }
+        
     }
 
     public void PlaceSpecial(Vector3Int position) { // buat naruh bangunan khusus
-        if (CheckPositionBeforePlacement(position))
-        {
+        
             placementManager.PlaceObjectOnTheMap(position, specialPrefab, CellType2.Structure, randomColor);
             //  specialPrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
             AudioPlayer.instance.PlayPlacementSound();
-        }
+        
     }
 
     private int GetRandomWeight(float[] weights)    // generate weight random (gak paham juga maksudnya apa)
@@ -76,33 +82,6 @@ public class StructureManager2 : MonoBehaviour
 
     private int GetRandomColor() {
         return UnityEngine.Random.Range(1, 9);
-    }
-
-    //fungsi buat ngubah warna bangunan
-    private Color ChangeColor(int colorCode) {
-        switch (colorCode)
-        {
-            case 1:
-                return Color.red;
-            case 2:
-                return Color.blue;
-            case 3:
-                return Color.yellow;
-            case 4:
-                return Color.green;
-            case 5:
-                return Color.black;
-            case 6:
-                return Color.cyan;
-            case 7:
-                return Color.gray;
-            case 8:
-                return Color.green;
-            case 9:
-                return Color.magenta;
-            default:
-                return Color.white;
-        }
     }
 
     private bool CheckPositionBeforePlacement(Vector3Int position)  // check grid yang akan ditaruh bangunan
