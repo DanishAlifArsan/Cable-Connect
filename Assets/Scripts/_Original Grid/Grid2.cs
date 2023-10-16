@@ -114,10 +114,10 @@ public class Grid2
     {
         if (aiAgent)
         {
-            // return cellType == CellType2.Road;
-            return cellType == CellType2.None;
+            return cellType == CellType2.Road || cellType == CellType2.Structure || cellType == CellType2.SpecialStructure;
+            // return cellType == CellType2.None;
         }
-        return cellType == CellType2.Empty || cellType == CellType2.Road;
+        return cellType == CellType2.Empty;
     }
 
     public Point2 GetRandomRoadPoint()

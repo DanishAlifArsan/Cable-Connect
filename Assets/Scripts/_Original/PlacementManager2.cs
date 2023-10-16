@@ -108,9 +108,9 @@ public class PlacementManager2 : MonoBehaviour
         tempRoad.Clear();
     }
 
-    internal List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition)  // untuk menggambar jalan
+    internal List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition, bool isAgent = false)  // untuk menggambar jalan
     {
-        var resultPath = GridSearch2.AStarSearch(grid,new Point2(startPosition.x, startPosition.z), new Point2(endPosition.x, endPosition.z)); // menggunakan astar untuk mendapatkan jarak dari ujung ke ujung jalan
+        var resultPath = GridSearch2.AStarSearch(grid,new Point2(startPosition.x, startPosition.z), new Point2(endPosition.x, endPosition.z), isAgent); // menggunakan astar untuk mendapatkan jarak dari ujung ke ujung jalan
         List<Vector3Int> path = new List<Vector3Int>(); // membuat array path
         foreach (Point2 p in resultPath) 
         {
@@ -174,4 +174,6 @@ public class PlacementManager2 : MonoBehaviour
         }
         tempRoad.Clear();
     }
+
+    
 }

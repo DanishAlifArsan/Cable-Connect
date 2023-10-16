@@ -14,7 +14,7 @@ public class InputManager2 : MonoBehaviour
     public LayerMask groundLayer;
 
     private int move = 0;
-
+    
     private void Update() {
         CheckClickDownEvent();
         CheckClickUpEvent();

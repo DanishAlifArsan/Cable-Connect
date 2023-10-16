@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SVS;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -17,7 +18,12 @@ public class StructureManager2 : MonoBehaviour
     [SerializeField] private int maxStructureCount;
     private int structureCount = 0;
     private float structureSpawnCooldown;
+    private bool isRemove = false;
 
+    private Dictionary<Vector3Int,Vector3Int> structureDictionary = new Dictionary<Vector3Int, Vector3Int>();
+    private List<Vector3Int> checkedStructureToConnect = new List<Vector3Int>();
+
+    private int connectionCount = 0;
     int randomColor = 0;
 
     private void Start() {
@@ -30,6 +36,11 @@ public class StructureManager2 : MonoBehaviour
          {
             PlaceStructure();
          }
+
+        foreach (var d in structureDictionary.Keys)
+        {
+            CheckConnection(d, isRemove);
+        }
     }
 
     private void PlaceStructure() {
@@ -42,8 +53,33 @@ public class StructureManager2 : MonoBehaviour
             structureSpawnCooldown = 0;
             PlaceHouse(housePos);
             PlaceSpecial(specialPos);
+            structureDictionary.Add(housePos,specialPos);
         }
     }
+
+    public int CheckConnection(Vector3Int position, bool isRemove) {
+         if (isRemove && checkedStructureToConnect.Contains(position))
+        {
+             if (placementManager.GetPathBetween(position, structureDictionary[position], true).Count <= 0)
+            {
+                connectionCount--;
+                checkedStructureToConnect.Remove(position);
+            }
+        }
+
+        if (!checkedStructureToConnect.Contains(position))
+        {
+            Vector3Int specialPos  = structureDictionary[position];
+            if (placementManager.GetPathBetween(position, specialPos, true).Count > 0)
+            {
+                connectionCount++;
+                checkedStructureToConnect.Add(position);
+            }
+        }
+
+        return connectionCount;
+    }
+
     public void PlaceHouse(Vector3Int position) {   // buat naruh bangunan
        
             placementManager.PlaceObjectOnTheMap(position, housePrefab, CellType2.Structure, randomColor);
@@ -100,6 +136,14 @@ public class StructureManager2 : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void SetIsRemove(bool isRemove) {
+        this.isRemove = isRemove;
+    }
+
+     public int GetNumberOfConnections() { //buat menghitung langkah
+        return connectionCount;
     }
 }
 

@@ -12,7 +12,8 @@ public class GameManager2 : MonoBehaviour
     public UiController2 uIController;
     public StructureManager2 structureManager;
     
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI teksLangkah, teksKoneksi;
+    [SerializeField] private int maxConnection;
 
     private void Start() {
         uIController.OnCablePlacement += CablePlacementHandler;
@@ -21,7 +22,8 @@ public class GameManager2 : MonoBehaviour
     }
 
     private void Update() {
-        text.text = "Langkah : " + inputManager.GetNumberOfMoves(); // menampilkan jumlah langkah
+        teksLangkah.text = "Moves : " + inputManager.GetNumberOfMoves(); // menampilkan jumlah langkah
+        teksKoneksi.text = structureManager.GetNumberOfConnections() + " / " + maxConnection; // menampilkan jumlah koneksi
     }
 
     private void cableRemoveHandler()   // handler untuk hapus kabel
@@ -30,6 +32,7 @@ public class GameManager2 : MonoBehaviour
         inputManager.OnMouseClick += cableManager.RemoveCable; //kalau mouse diklik, jalannya dipasang
         inputManager.OnMouseHold += cableManager.RemoveCable;  //kalau mouse dihold, munculin preview jalan
         inputManager.OnMouseUp += cableManager.FinishRemove;    //kalau mouse dilepas, preview jalan hilang
+        structureManager.SetIsRemove(true);
     }
 
     private void CablePlacementHandler() //hanlder untuk menaruh jalan
@@ -38,6 +41,7 @@ public class GameManager2 : MonoBehaviour
         inputManager.OnMouseClick += cableManager.PlaceCable; //kalau mouse diklik, jalannya dipasang
         inputManager.OnMouseHold += cableManager.PlaceCable;  //kalau mouse dihold, munculin preview jalan
         inputManager.OnMouseUp += cableManager.FinishPlacing;    //kalau mouse dilepas, preview jalan hilang
+        structureManager.SetIsRemove(false);
     }
 
     private void ClearInputAction() // sebelum menaruh bangunan, input mouse direset
