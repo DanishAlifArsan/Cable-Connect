@@ -15,10 +15,12 @@ public class StructureManager2 : MonoBehaviour
     private float[] houseWeights, specialWeights; //weight dari bangunan
 
     [SerializeField] private float structureSpawnTimer;
-    [SerializeField] private int maxStructureCount;
+    // [SerializeField] private int maxStructureCount;
     private int structureCount = 0;
     private float structureSpawnCooldown;
     private bool isRemove = false;
+
+    public bool isConnect;
 
     private Dictionary<Vector3Int,Vector3Int> structureDictionary = new Dictionary<Vector3Int, Vector3Int>();
     private List<Vector3Int> checkedStructureToConnect = new List<Vector3Int>();
@@ -28,6 +30,7 @@ public class StructureManager2 : MonoBehaviour
 
     private void Start() {
         PlaceStructure();
+        isConnect = false;
     }
 
     private void Update() {
@@ -45,8 +48,8 @@ public class StructureManager2 : MonoBehaviour
 
     private void PlaceStructure() {
         Vector3Int housePos = placementManager.GetRandomGridPosition();
-        Vector3Int specialPos = placementManager.GetRandomGridPosition();
-        if (CheckPositionBeforePlacement(housePos) && CheckPositionBeforePlacement(specialPos) && structureCount < maxStructureCount )
+        Vector3Int specialPos = placementManager.GetRandomAdjectionGridPosition(housePos, 5);
+        if (CheckPositionBeforePlacement(housePos) && CheckPositionBeforePlacement(specialPos) && housePos != specialPos)
         {
             structureCount++;
             randomColor = GetRandomColor();
@@ -74,6 +77,7 @@ public class StructureManager2 : MonoBehaviour
             {
                 connectionCount++;
                 checkedStructureToConnect.Add(position);
+                isConnect = true;
             }
         }
 

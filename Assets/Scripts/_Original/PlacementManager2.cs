@@ -148,8 +148,13 @@ public class PlacementManager2 : MonoBehaviour
     // }
 
     internal Vector3Int GetRandomGridPosition() {   // buat cari grid random
-    Vector3Int randomPos = new Vector3Int(UnityEngine.Random.Range(0, width - 1), 0, UnityEngine.Random.Range(0, height - 1));
-     return randomPos;
+        Vector3Int randomPos = new Vector3Int(UnityEngine.Random.Range(0, width - 1), 0, UnityEngine.Random.Range(0, height - 1));
+        return randomPos;
+    }
+
+    internal Vector3Int GetRandomAdjectionGridPosition(Vector3Int position, int range) {   // buat cari grid random
+        Vector3Int randomPos = new Vector3Int(UnityEngine.Random.Range(position.x - range, position.x + range), 0, UnityEngine.Random.Range(position.z - range, position.z + range));
+        return randomPos;
     }
 
     internal void RemoveTemporaryStructure(Vector3Int position)

@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using SVS;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager2 : MonoBehaviour
@@ -13,19 +15,40 @@ public class GameManager2 : MonoBehaviour
     public StructureManager2 structureManager;
     
     [SerializeField] private TextMeshProUGUI teksLangkah, teksKoneksi;
-    [SerializeField] private int maxConnection;
+    [SerializeField] private UnityEngine.UI.Image timerBar;
+    // [SerializeField] private int maxConnection;
+    [SerializeField] private float maxTimer;
+    [SerializeField] private float timerDecreaseRate;
+    private float currentTimer;
 
     private void Start() {
         uIController.OnCablePlacement += CablePlacementHandler;
         uIController.onCableRemove += cableRemoveHandler;
         CablePlacementHandler();
+        currentTimer = maxTimer;
     }
 
     private void Update() {
         teksLangkah.text = "Moves : " + inputManager.GetNumberOfMoves(); // menampilkan jumlah langkah
-        teksKoneksi.text = structureManager.GetNumberOfConnections() + " / " + maxConnection; // menampilkan jumlah koneksi
+        teksKoneksi.text = structureManager.GetNumberOfConnections().ToString(); // menampilkan jumlah koneksi
+        CheckTimer();
+        timerBar.fillAmount = currentTimer / maxTimer;
     }
 
+    private void CheckTimer() {
+        currentTimer -= Time.deltaTime * timerDecreaseRate;
+        if (currentTimer <= 0)
+        {
+            Time.timeScale = 0;
+            Debug.Log("Game Over");
+        }
+        if (structureManager.isConnect)
+        {
+            currentTimer = maxTimer;
+            structureManager.isConnect = false;
+        }
+    }
+ 
     private void cableRemoveHandler()   // handler untuk hapus kabel
     {
         ClearInputAction();
