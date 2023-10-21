@@ -10,7 +10,7 @@ using UnityEngine.Rendering;
 
 public class StructureManager2 : MonoBehaviour
 {
-    public GameObject housePrefab, specialPrefab; // prefab dari bangunan
+    public GameObject[] housePrefab, specialPrefab; // prefab dari bangunan
     public PlacementManager2 placementManager;
     private float[] houseWeights, specialWeights; //weight dari bangunan
 
@@ -44,6 +44,11 @@ public class StructureManager2 : MonoBehaviour
         {
             CheckConnection(d, isRemove);
         }
+    }
+
+    private GameObject GetRandomPrefab(GameObject[] structurePrefab) {
+        var randomPrefab = structurePrefab[UnityEngine.Random.Range(0, structurePrefab.Length - 1)];
+        return randomPrefab;
     }
 
     private void PlaceStructure() {
@@ -86,7 +91,7 @@ public class StructureManager2 : MonoBehaviour
 
     public void PlaceHouse(Vector3Int position) {   // buat naruh bangunan
        
-            placementManager.PlaceObjectOnTheMap(position, housePrefab, CellType2.Structure, randomColor);
+            placementManager.PlaceObjectOnTheMap(position, GetRandomPrefab(housePrefab), CellType2.Structure, randomColor);
             // housePrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
             AudioPlayer.instance.PlayPlacementSound();
         
@@ -94,7 +99,7 @@ public class StructureManager2 : MonoBehaviour
 
     public void PlaceSpecial(Vector3Int position) { // buat naruh bangunan khusus
         
-            placementManager.PlaceObjectOnTheMap(position, specialPrefab, CellType2.Structure, randomColor);
+            placementManager.PlaceObjectOnTheMap(position, GetRandomPrefab(specialPrefab), CellType2.Structure, randomColor);
             //  specialPrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
             AudioPlayer.instance.PlayPlacementSound();
         
@@ -134,7 +139,7 @@ public class StructureManager2 : MonoBehaviour
         {
             return false;
         }
-        if (placementManager.GetNeighborTypeFor(position, CellType2.Structure).Count > 0 || placementManager.GetNeighborTypeFor(position, CellType2.Road).Count > 0)
+        if (placementManager.GetNeighborTypeFor(position, CellType2.Structure).Count > 0 || placementManager.GetNeighborTypeFor(position, CellType2.Road).Count > 0 || placementManager.GetNeighborTypeFor(position, CellType2.SpecialStructure).Count > 0)
         {
             return false;
         }

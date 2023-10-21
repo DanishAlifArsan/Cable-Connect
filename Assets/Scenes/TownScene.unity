@@ -4024,7 +4024,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7281,7 +7281,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603889760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13749,11 +13749,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6421141fd414f2a49a868db1f4839892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  straight: {fileID: 2448032961399159546, guid: e46f3461b947af541a2e336c0c41c6da,
+  straight: {fileID: 959538041037022015, guid: d35eca00ff102e148830e735eae9e826, type: 3}
+  corner: {fileID: 3556046233676108779, guid: bd89c1236ad185c439497558ed5b6d31, type: 3}
+  threeWay: {fileID: 7304518239534317015, guid: cc65bd930fc76ff40b48627db668e39a,
     type: 3}
-  corner: {fileID: 2448032961399159546, guid: e46f3461b947af541a2e336c0c41c6da, type: 3}
-  threeWay: {fileID: 0}
-  fourWay: {fileID: 0}
+  fourWay: {fileID: 8655883323252076755, guid: 372f1f7cdbdc98942b72d5309a4f4a16, type: 3}
 --- !u!114 &1092437610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26073,10 +26073,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7810edd075c4e174295e477972efed4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  housePrefab: {fileID: 6922601744627388734, guid: 2cb64f90edc559e479e5b72188cac42a,
-    type: 3}
-  specialPrefab: {fileID: 7985502027974279352, guid: 412e4028b2642364f8456d46bc6ea1df,
-    type: 3}
+  housePrefab:
+  - {fileID: 1802273711554538079, guid: 75818fa6dff639c4383400488cc60367, type: 3}
+  - {fileID: 3292639849296075664, guid: b98dcbf9d638ddb44b4cb2e6eaa390d4, type: 3}
+  - {fileID: 2017729426443878886, guid: 38d161c8ee07f6c47bd78ee63e72fa37, type: 3}
+  - {fileID: 4966961161248135999, guid: 9fb517437b2d3c849ac9da0cfe801f97, type: 3}
+  - {fileID: 2510401842574747792, guid: 300e1b9c78c19384ab977b03c76ce37b, type: 3}
+  specialPrefab:
+  - {fileID: 5961073126525281350, guid: 298d8c646d41da5469a7280c6961a927, type: 3}
+  - {fileID: 4218682319279954344, guid: bfff08078590a5d438be06908d2b3910, type: 3}
+  - {fileID: 5404440512537029995, guid: b4685e1e6248e5c4db83ae173417a76c, type: 3}
   placementManager: {fileID: 1287732583}
   structureSpawnTimer: 5
   isConnect: 0

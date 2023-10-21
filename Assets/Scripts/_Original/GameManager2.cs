@@ -40,6 +40,7 @@ public class GameManager2 : MonoBehaviour
         if (currentTimer <= 0)
         {
             Time.timeScale = 0;
+            ClearInputAction();
             Debug.Log("Game Over");
         }
         if (structureManager.isConnect)
