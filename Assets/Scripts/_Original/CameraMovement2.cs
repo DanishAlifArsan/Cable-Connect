@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 public class CameraMovement2 : MonoBehaviour
 {
-    public float panSpeed = 5f;
-    public float panBorderThickness = 10f;
+    
+    private float panBorderThickness = 10f;
+    [SerializeField] private float cameraSpeed = 5f;
+    [SerializeField] private float minY, maxY;
+    [SerializeField] Vector3 minValue, maxValue;
+
+    private Camera cam;
+
+    private void Start() {
+        cam = GetComponent<Camera>();
+    }
 
     void Update()
     {
@@ -13,20 +22,27 @@ public class CameraMovement2 : MonoBehaviour
 
         if (Input.mousePosition.y >= Screen.height - panBorderThickness)
         {
-            pos.z += panSpeed * Time.deltaTime;
+            pos.z += cameraSpeed * Time.deltaTime;
         }
         if ( Input.mousePosition.y <= panBorderThickness)
         {
-            pos.z -= panSpeed * Time.deltaTime;
+            pos.z -= cameraSpeed * Time.deltaTime;
         }
         if (Input.mousePosition.x >= Screen.width - panBorderThickness)
         {
-            pos.x += panSpeed * Time.deltaTime;
+            pos.x += cameraSpeed * Time.deltaTime;
         }
         if (Input.mousePosition.x <= panBorderThickness)
         {
-            pos.x -= panSpeed * Time.deltaTime;
+            pos.x -= cameraSpeed * Time.deltaTime;
         }
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        cam.orthographicSize -= scroll * 100f * cameraSpeed * Time.deltaTime;
+        cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, minY, maxY);
+
+        pos.x = Mathf.Clamp(pos.x, minValue.x, maxValue.x);
+        pos.z = Mathf.Clamp(pos.z, minValue.z, maxValue.z);
 
         transform.position = pos;
     }
