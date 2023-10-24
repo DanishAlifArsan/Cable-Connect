@@ -19805,7 +19805,7 @@ MonoBehaviour:
   teksKoneksi: {fileID: 1570740565}
   LifeBar: {fileID: 855900176}
   leaderboardUI: {fileID: 1910467053}
-  maxLife: 10
+  maxLife: 15
   lifeDecreaseRate: 1
 --- !u!1001 &1375260926
 PrefabInstance:
@@ -28140,7 +28140,7 @@ MonoBehaviour:
   - {fileID: 4218682319279954344, guid: bfff08078590a5d438be06908d2b3910, type: 3}
   - {fileID: 5404440512537029995, guid: b4685e1e6248e5c4db83ae173417a76c, type: 3}
   placementManager: {fileID: 1287732583}
-  structureSpawnTimer: 5
+  structureSpawnTimer: 7
   isConnect: 0
 --- !u!1001 &1913209484
 PrefabInstance:

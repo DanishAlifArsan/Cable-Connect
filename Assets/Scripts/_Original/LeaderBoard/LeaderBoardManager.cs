@@ -27,6 +27,7 @@ public class LeaderBoardManager : MonoBehaviour
         }else {
             CheckForScore();
             SaveGame();
+            LoadGame();
         }
     }
 
