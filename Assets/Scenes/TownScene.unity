@@ -19805,7 +19805,7 @@ MonoBehaviour:
   teksKoneksi: {fileID: 1570740565}
   LifeBar: {fileID: 855900176}
   leaderboardUI: {fileID: 1910467053}
-  maxLife: 15
+  maxLife: 12
   lifeDecreaseRate: 1
 --- !u!1001 &1375260926
 PrefabInstance:
