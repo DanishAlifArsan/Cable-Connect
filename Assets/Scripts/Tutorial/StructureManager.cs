@@ -22,7 +22,7 @@ public class StructureManager : MonoBehaviour
         {
             int randomIndex = GetRandomWeight(houseWeights);
             placementManager.PlaceObjectOnTheMap(position, housePrefabs[randomIndex].prefab, CellType.Structure);
-            AudioPlayer.instance.PlayPlacementSound();
+            AudioPlayer.instance.PlaySound(1);
         }
     }
 
@@ -31,7 +31,7 @@ public class StructureManager : MonoBehaviour
         {
             int randomIndex = GetRandomWeight(specialWeights);
             placementManager.PlaceObjectOnTheMap(position, specialPrefabs[randomIndex].prefab, CellType.Structure);
-            AudioPlayer.instance.PlayPlacementSound();
+            AudioPlayer.instance.PlaySound(1);
         }
     }
 

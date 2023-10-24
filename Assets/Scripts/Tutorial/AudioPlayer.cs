@@ -10,7 +10,7 @@ namespace SVS
 
     public class AudioPlayer : MonoBehaviour
     {
-        public AudioClip placementSound;
+        public AudioClip[] sfx;
         public AudioSource audioSource;
 
         public static AudioPlayer instance;
@@ -24,11 +24,12 @@ namespace SVS
 
         }
 
-        public void PlayPlacementSound()
+        public void PlaySound(int i = 0)
         {
-            if(placementSound != null)
+            // 0 buat placement, 1 buat spawn structure, 2 buat remove
+            if(sfx.Length >= i+1)
             {
-                audioSource.PlayOneShot(placementSound);
+                audioSource.PlayOneShot(sfx[i]);
             }
         }
     }

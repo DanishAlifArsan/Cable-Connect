@@ -93,7 +93,7 @@ public class StructureManager2 : MonoBehaviour
        
             placementManager.PlaceObjectOnTheMap(position, GetRandomPrefab(housePrefab), CellType2.Structure, randomColor);
             // housePrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
-            AudioPlayer.instance.PlayPlacementSound();
+            AudioPlayer.instance.PlaySound(1);
         
     }
 
@@ -101,7 +101,7 @@ public class StructureManager2 : MonoBehaviour
         
             placementManager.PlaceObjectOnTheMap(position, GetRandomPrefab(specialPrefab), CellType2.Structure, randomColor);
             //  specialPrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
-            AudioPlayer.instance.PlayPlacementSound();
+            AudioPlayer.instance.PlaySound(1);
         
     }
 

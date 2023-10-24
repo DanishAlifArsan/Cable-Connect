@@ -15,37 +15,42 @@ public class GameManager2 : MonoBehaviour
     public StructureManager2 structureManager;
     
     [SerializeField] private TextMeshProUGUI teksLangkah, teksKoneksi;
-    [SerializeField] private UnityEngine.UI.Image timerBar;
+    [SerializeField] private UnityEngine.UI.Image LifeBar;
+    [SerializeField] private GameObject leaderboardUI;
     // [SerializeField] private int maxConnection;
-    [SerializeField] private float maxTimer;
-    [SerializeField] private float timerDecreaseRate;
-    private float currentTimer;
+    [SerializeField] private float maxLife;
+    [SerializeField] private float lifeDecreaseRate;
+    private float currentLife;
+    private float timer = 0;
+    public int totalScore {get; private set;}
 
     private void Start() {
         uIController.OnCablePlacement += CablePlacementHandler;
         uIController.onCableRemove += cableRemoveHandler;
         CablePlacementHandler();
-        currentTimer = maxTimer;
+        currentLife = maxLife;
+        totalScore = 0;
+        leaderboardUI.SetActive(false);
     }
 
     private void Update() {
         teksLangkah.text = "Moves : " + inputManager.GetNumberOfMoves(); // menampilkan jumlah langkah
         teksKoneksi.text = structureManager.GetNumberOfConnections().ToString(); // menampilkan jumlah koneksi
-        CheckTimer();
-        timerBar.fillAmount = currentTimer / maxTimer;
+        CheckLife();
+        timer += Time.deltaTime;
+        LifeBar.fillAmount = currentLife / maxLife;
     }
 
-    private void CheckTimer() {
-        currentTimer -= Time.deltaTime * timerDecreaseRate;
-        if (currentTimer <= 0)
+    private void CheckLife() {
+        currentLife -= Time.deltaTime * lifeDecreaseRate;
+        if (currentLife <= 0)
         {
-            Time.timeScale = 0;
             ClearInputAction();
-            Debug.Log("Game Over");
+            GameOver();
         }
         if (structureManager.isConnect)
         {
-            currentTimer = maxTimer;
+            currentLife = maxLife;
             structureManager.isConnect = false;
         }
     }
@@ -73,5 +78,13 @@ public class GameManager2 : MonoBehaviour
         inputManager.OnMouseClick = null;
         inputManager.OnMouseHold = null;
         inputManager.OnMouseUp = null;
+    }
+
+    private void GameOver() {
+        Time.timeScale = 0;
+        leaderboardUI.SetActive(true);
+        timer = 0;
+        totalScore = structureManager.GetNumberOfConnections() + (int) timer;
+        Debug.Log("Game Over, score:" + totalScore);
     }
 }

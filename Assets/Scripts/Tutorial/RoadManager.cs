@@ -93,7 +93,7 @@ public class RoadManager : MonoBehaviour
         placementManager.AddTempStructureToDictionary();    // memasukkan jalan ke list
         if (tempPlacement.Count > 0)
         {
-            AudioPlayer.instance.PlayPlacementSound();   
+            AudioPlayer.instance.PlaySound();   
         }
         tempPlacement.Clear();
         startPosition = Vector3Int.zero; // reset posisi ujung jalan

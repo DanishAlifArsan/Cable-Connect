@@ -157,7 +157,7 @@ public class CableManager : MonoBehaviour
         placementManager.AddTempStructureToDictionary();    // memasukkan jalan ke list
         if (tempPlacement.Count > 0)
         {
-            AudioPlayer.instance.PlayPlacementSound();   
+            AudioPlayer.instance.PlaySound(0);   
         }
         tempPlacement.Clear();
         startPosition = Vector3Int.zero; // reset posisi ujung jalan
@@ -204,7 +204,7 @@ public class CableManager : MonoBehaviour
         placementManager.RemoveTempStructureFromDictionary();    // memasukkan jalan ke list
         if (tempRemove.Count > 0)
         {
-            AudioPlayer.instance.PlayPlacementSound();   
+            AudioPlayer.instance.PlaySound(2);   
         }
         tempRemove.Clear();
         startPosition = Vector3Int.zero; // reset posisi ujung jalan
