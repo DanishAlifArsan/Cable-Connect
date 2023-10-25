@@ -53,7 +53,7 @@ public class StructureManager2 : MonoBehaviour
 
     private void PlaceStructure() {
         Vector3Int housePos = placementManager.GetRandomGridPosition();
-        Vector3Int specialPos = placementManager.GetRandomAdjectionGridPosition(housePos, 5);
+        Vector3Int specialPos = placementManager.GetRandomAdjectionGridPosition(housePos, 10);
         if (CheckPositionBeforePlacement(housePos) && CheckPositionBeforePlacement(specialPos) && housePos != specialPos)
         {
             structureCount++;
