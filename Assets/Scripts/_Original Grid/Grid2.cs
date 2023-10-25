@@ -58,7 +58,7 @@ public enum CellType2
 
 public class Grid2
 {
-    private Tuple<CellType2,int>[,] _grid;
+    private static Tuple<CellType2,int>[,] _grid;
     private int _width;
     public int Width { get { return _width; } }
     private int _height;
@@ -110,14 +110,13 @@ public class Grid2
         }
     }
 
-    public static bool IsCellWakable(CellType2 cellType, bool aiAgent = false)
+    public static bool IsCellWakable(int color, Point2 cell, bool aiAgent = false)
     {
         if (aiAgent)
         {
-            return cellType == CellType2.Road || cellType == CellType2.Structure || cellType == CellType2.SpecialStructure;
-            // return cellType == CellType2.None;
+            return color == _grid[cell.X, cell.Y].Item2;
         }
-        return cellType == CellType2.Empty;
+        return color == 0 || color == _grid[cell.X, cell.Y].Item2;
     }
 
     public Point2 GetRandomRoadPoint()
@@ -134,7 +133,7 @@ public class Grid2
 
     public List<Point2> GetAdjacentCells(Point2 cell, bool isAgent)
     {
-        return GetWakableAdjacentCells((int)cell.X, (int)cell.Y, isAgent);
+        return GetWakableAdjacentCells((int)cell.X, (int)cell.Y, cell, isAgent);
     }
 
     public float GetCostOfEnteringCell(Point2 cell)
@@ -168,12 +167,12 @@ public class Grid2
         return adjacentCells;
     }
 
-    public List<Point2> GetWakableAdjacentCells(int x, int y, bool isAgent)
+    public List<Point2> GetWakableAdjacentCells(int x, int y, Point2 cell, bool isAgent)
     {
         List<Point2> adjacentCells = GetAllAdjacentCells(x, y);
         for (int i = adjacentCells.Count - 1; i >= 0; i--)
         {
-            if(IsCellWakable(_grid[adjacentCells[i].X, adjacentCells[i].Y].Item1, isAgent)==false)
+            if(IsCellWakable(_grid[adjacentCells[i].X, adjacentCells[i].Y].Item2, cell, isAgent)==false)
             {
                 adjacentCells.RemoveAt(i);
             }
