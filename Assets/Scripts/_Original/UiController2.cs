@@ -11,6 +11,7 @@ public class UiController2 : MonoBehaviour
 
     public Color outlineColor;
     List<Button> buttonList; 
+    [SerializeField] GameObject[] menus;
 
     private void Start() {
         buttonList = new List<Button>{placeCableButton, RemoveCableButton};
@@ -43,5 +44,12 @@ public class UiController2 : MonoBehaviour
         {
             b.GetComponent<Outline>().enabled = false;
         }
+    }
+
+    public void ShowMenu(int i) {
+        menus[i].SetActive(true);
+    }
+    public void HideMenu(int i) {
+        menus[i].SetActive(false);
     }
 }

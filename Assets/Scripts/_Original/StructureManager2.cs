@@ -62,6 +62,7 @@ public class StructureManager2 : MonoBehaviour
             PlaceHouse(housePos);
             PlaceSpecial(specialPos);
             structureDictionary.Add(housePos,specialPos);
+            AudioPlayer.instance.PlaySound(1);
         }
     }
 
@@ -80,6 +81,7 @@ public class StructureManager2 : MonoBehaviour
             Vector3Int specialPos  = structureDictionary[position];
             if (placementManager.GetPathBetween(position, specialPos, true).Count > 0)
             {
+                AudioPlayer.instance.PlaySound(3);
                 connectionCount++;
                 checkedStructureToConnect.Add(position);
                 isConnect = true;
@@ -93,16 +95,12 @@ public class StructureManager2 : MonoBehaviour
        
             placementManager.PlaceObjectOnTheMap(position, GetRandomPrefab(housePrefab), CellType2.Structure, randomColor);
             // housePrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
-            AudioPlayer.instance.PlaySound(1);
-        
     }
 
     public void PlaceSpecial(Vector3Int position) { // buat naruh bangunan khusus
         
             placementManager.PlaceObjectOnTheMap(position, GetRandomPrefab(specialPrefab), CellType2.Structure, randomColor);
             //  specialPrefab.GetComponent<MeshRenderer>().material.SetColor("Color",ChangeColor(randomColor));
-            AudioPlayer.instance.PlaySound(1);
-        
     }
 
     private int GetRandomWeight(float[] weights)    // generate weight random (gak paham juga maksudnya apa)

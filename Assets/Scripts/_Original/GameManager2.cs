@@ -16,7 +16,6 @@ public class GameManager2 : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI teksLangkah, teksKoneksi;
     [SerializeField] private UnityEngine.UI.Image LifeBar;
-    [SerializeField] private GameObject leaderboardUI;
     // [SerializeField] private int maxConnection;
     [SerializeField] private float maxLife;
     [SerializeField] private float lifeDecreaseRate;
@@ -30,7 +29,6 @@ public class GameManager2 : MonoBehaviour
         CablePlacementHandler();
         currentLife = maxLife;
         totalScore = 0;
-        leaderboardUI.SetActive(false);
     }
 
     private void Update() {
@@ -82,7 +80,7 @@ public class GameManager2 : MonoBehaviour
 
     private void GameOver() {
         Time.timeScale = 0;
-        leaderboardUI.SetActive(true);
+        uIController.ShowMenu(1);
         //(waktu(detik) x 9)+(connected x 500)
         totalScore = (structureManager.GetNumberOfConnections() * 500) + ((int) timer * 9);
         timer = 0;

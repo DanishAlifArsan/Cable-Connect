@@ -44,11 +44,11 @@ public class CableManager : MonoBehaviour
 
             tempPlacement.Add(position);    
             placementManager.PlaceTemporaryStructure(position, cableFixer.straight, CellType2.Road, cableColor);  // generate preview jalan
-            AudioPlayer.instance.PlaySound(0); 
+            AudioPlayer.instance.PlaySound(0, true); 
             
         }  
         else {  // proses ketika preview sudah fix
-            AudioPlayer.instance.PlaySound(0); 
+            AudioPlayer.instance.PlaySound(0, true); 
             placementManager.RemoveAllTempStructures(); // menghapus preview
             tempPlacement.Clear();
 
@@ -183,9 +183,9 @@ public class CableManager : MonoBehaviour
 
             tempRemove.Add(position);    
             placementManager.RemoveTemporaryStructure(position);  // generate preview jalan
-            AudioPlayer.instance.PlaySound(2); 
+            AudioPlayer.instance.PlaySound(2, true); 
         } else {
-            AudioPlayer.instance.PlaySound(2); 
+            AudioPlayer.instance.PlaySound(2, true); 
             // placementManager.RemoveAllTempStructures(); // menghapus preview
             tempRemove.Clear();
 

@@ -24,14 +24,16 @@ namespace SVS
 
         }
 
-        public void PlaySound(int i = 0)
+        public void PlaySound(int i = 0, bool isRandom = false)
         {
+            audioSource.pitch = 1;
             // 0 buat placement, 1 buat spawn structure, 2 buat remove
             if(sfx.Length >= i+1)
             {
-                
-                switch (Random.Range(0,9))
+                if (isRandom)
                 {
+                    switch (Random.Range(0,9))
+                    {
                     case 0:
                         audioSource.pitch = 1f; break;
                     case 1:
@@ -50,7 +52,8 @@ namespace SVS
                         audioSource.pitch = 1.7f; break;
                     default: 
                         audioSource.pitch = 1.8f; break;
-                }
+                    }
+                }   
                 audioSource.PlayOneShot(sfx[i]);
             }
         }
