@@ -83,9 +83,9 @@ public class GameManager2 : MonoBehaviour
     private void GameOver() {
         Time.timeScale = 0;
         leaderboardUI.SetActive(true);
-        timer = 0;
         //(waktu(detik) x 9)+(connected x 500)
         totalScore = (structureManager.GetNumberOfConnections() * 500) + ((int) timer * 9);
+        timer = 0;
         Debug.Log("Game Over, score:" + totalScore);
     }
 }
