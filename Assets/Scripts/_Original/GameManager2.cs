@@ -22,13 +22,14 @@ public class GameManager2 : MonoBehaviour
     private float currentLife;
     private float timer = 0;
     public int totalScore {get; private set;}
+    public int timeScore {get; private set;}
+    public int connectedScore {get; private set;}
 
     private void Start() {
         uIController.OnCablePlacement += CablePlacementHandler;
         uIController.onCableRemove += cableRemoveHandler;
         CablePlacementHandler();
         currentLife = maxLife;
-        totalScore = 0;
     }
 
     private void Update() {
@@ -79,11 +80,10 @@ public class GameManager2 : MonoBehaviour
     }
 
     private void GameOver() {
-        Time.timeScale = 0;
-        uIController.ShowMenu(1);
+        timeScore = (int) timer * 9;
+        connectedScore = structureManager.GetNumberOfConnections() * 500;
         //(waktu(detik) x 9)+(connected x 500)
-        totalScore = (structureManager.GetNumberOfConnections() * 500) + ((int) timer * 9);
-        timer = 0;
-        Debug.Log("Game Over, score:" + totalScore);
+        totalScore = timeScore + connectedScore;
+        uIController.ShowMenu(1);
     }
 }

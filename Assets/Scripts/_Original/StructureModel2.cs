@@ -49,7 +49,7 @@ public class StructureModel2 : MonoBehaviour
             case 7:
                 return new Color(0.15294117647058825f,0.3764705882352941f,0.8235294117647058f);
             case 8:
-                return new Color(0.9098039215686274f,0.2901960784313726f,0.28627450980392155f);
+                return new Color(0.23529411764705882f,0.7372549019607844f,0.7294117647058823f);
             case 9:
                 return new Color(0.3176470588235294f,0.34509803921568627f,0.3843137254901961f);
             default:
