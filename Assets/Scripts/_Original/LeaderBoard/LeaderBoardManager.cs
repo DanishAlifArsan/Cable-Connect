@@ -8,6 +8,7 @@ using UnityEngine;
 public class LeaderBoardManager : MonoBehaviour
 {
     public GameManager2 gameManager;
+    public UiController2 uIController;
     [SerializeField] TMP_InputField nameInput;
     [SerializeField] TextMeshProUGUI[] nameText, scoreText;
     private List<String> nameList = new List<string>();
@@ -16,7 +17,7 @@ public class LeaderBoardManager : MonoBehaviour
     public string[] names;
     public int[] scores;
 
-    private void Start() {
+    private void Awake() {
         LoadGame();
     }
   
@@ -27,8 +28,8 @@ public class LeaderBoardManager : MonoBehaviour
         }else {
             CheckForScore();
             SaveGame();
-            LoadGame();
         }
+        uIController.ShowMenu(2);
     }
 
     private void CheckForScore() {

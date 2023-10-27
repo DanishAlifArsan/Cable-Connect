@@ -47,9 +47,11 @@ public class UiController2 : MonoBehaviour
     }
 
     public void ShowMenu(int i) {
+        Time.timeScale = 0;
         menus[i].SetActive(true);
     }
     public void HideMenu(int i) {
+        Time.timeScale = 1;
         menus[i].SetActive(false);
     }
 }
