@@ -24,6 +24,7 @@ public class GameManager2 : MonoBehaviour
     public int totalScore {get; private set;}
     public int timeScore {get; private set;}
     public int connectedScore {get; private set;}
+    private bool isGameOver = false;
 
     private void Start() {
         uIController.OnCablePlacement += CablePlacementHandler;
@@ -33,6 +34,10 @@ public class GameManager2 : MonoBehaviour
     }
 
     private void Update() {
+        if (isGameOver)
+        {
+            return;
+        }
         teksLangkah.text = "Moves : " + inputManager.GetNumberOfMoves(); // menampilkan jumlah langkah
         teksKoneksi.text = structureManager.GetNumberOfConnections().ToString(); // menampilkan jumlah koneksi
         CheckLife();
@@ -60,7 +65,6 @@ public class GameManager2 : MonoBehaviour
         inputManager.OnMouseClick += cableManager.RemoveCable; //kalau mouse diklik, jalannya dipasang
         inputManager.OnMouseHold += cableManager.RemoveCable;  //kalau mouse dihold, munculin preview jalan
         inputManager.OnMouseUp += cableManager.FinishRemove;    //kalau mouse dilepas, preview jalan hilang
-        structureManager.SetIsRemove(true);
     }
 
     private void CablePlacementHandler() //hanlder untuk menaruh jalan
@@ -69,7 +73,6 @@ public class GameManager2 : MonoBehaviour
         inputManager.OnMouseClick += cableManager.PlaceCable; //kalau mouse diklik, jalannya dipasang
         inputManager.OnMouseHold += cableManager.PlaceCable;  //kalau mouse dihold, munculin preview jalan
         inputManager.OnMouseUp += cableManager.FinishPlacing;    //kalau mouse dilepas, preview jalan hilang
-        structureManager.SetIsRemove(false);
     }
 
     private void ClearInputAction() // sebelum menaruh bangunan, input mouse direset
@@ -80,6 +83,8 @@ public class GameManager2 : MonoBehaviour
     }
 
     private void GameOver() {
+        isGameOver = true;
+        Time.timeScale = 0;
         timeScore = (int) timer * 9;
         connectedScore = structureManager.GetNumberOfConnections() * 500;
         //(waktu(detik) x 9)+(connected x 500)

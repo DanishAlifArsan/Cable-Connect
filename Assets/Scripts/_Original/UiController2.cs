@@ -9,7 +9,7 @@ public class UiController2 : MonoBehaviour
     public Action OnCablePlacement, onCableRemove;
     public Button placeCableButton, RemoveCableButton;
 
-    public Color outlineColor;
+    public Color SelectedColor;
     List<Button> buttonList; 
     [SerializeField] GameObject[] menus;
 
@@ -33,25 +33,33 @@ public class UiController2 : MonoBehaviour
 
     private void ModifyOutline(Button button)
     {
-        var outline = button.GetComponent<Outline>();
-        outline.effectColor = outlineColor;
-        outline.enabled = true;
+        var image = button.GetComponent<Image>();
+        image.color = SelectedColor;
     }
 
     private void ResetButtonColor()
     {
         foreach (Button b in buttonList)
         {
-            b.GetComponent<Outline>().enabled = false;
+            b.GetComponent<Image>().color = Color.white;
         }
     }
 
     public void ShowMenu(int i) {
-        Time.timeScale = 0;
         menus[i].SetActive(true);
     }
     public void HideMenu(int i) {
-        Time.timeScale = 1;
         menus[i].SetActive(false);
+    }
+
+    public void PauseGame() {
+        if (!menus[0].activeInHierarchy)
+        {
+            Time.timeScale = 0;
+            menus[0].SetActive(true);
+        } else {
+            Time.timeScale = 1;
+            menus[0].SetActive(false);
+        }   
     }
 }

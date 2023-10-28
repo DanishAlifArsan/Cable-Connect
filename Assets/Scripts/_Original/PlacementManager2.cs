@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlacementManager2 : MonoBehaviour
 {
     public int width, height;   //ukuran dari fieldnya
-    Grid2 grid;  // struktur data graf
+    public Grid2 grid;  // struktur data graf
 
     private Dictionary<Vector3Int, StructureModel2> tempRoad = new Dictionary<Vector3Int, StructureModel2>(); //array yg nyimpan daftar preview bangunan
     private Dictionary<Vector3Int, StructureModel2> structureDictionary = new Dictionary<Vector3Int, StructureModel2>(); //array yg nyimpan daftar bangunan

@@ -17161,8 +17161,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1293824997}
         m_TargetAssemblyTypeName: UiController2, Assembly-CSharp
-        m_MethodName: ShowMenu
-        m_Mode: 3
+        m_MethodName: PauseGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18595,7 +18595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeCableButton: {fileID: 554782292}
   RemoveCableButton: {fileID: 12685044}
-  outlineColor: {r: 0.6117647, g: 0.043137256, b: 0.69803923, a: 1}
+  SelectedColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
   menus:
   - {fileID: 8439730687206670568}
   - {fileID: 712290450}
@@ -33578,8 +33578,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1293824997}
         m_TargetAssemblyTypeName: UiController2, Assembly-CSharp
-        m_MethodName: HideMenu
-        m_Mode: 3
+        m_MethodName: PauseGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

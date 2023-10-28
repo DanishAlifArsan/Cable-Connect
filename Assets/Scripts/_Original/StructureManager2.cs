@@ -18,7 +18,6 @@ public class StructureManager2 : MonoBehaviour
     // [SerializeField] private int maxStructureCount;
     private int structureCount = 0;
     private float structureSpawnCooldown;
-    private bool isRemove = false;
 
     public bool isConnect;
 
@@ -29,7 +28,7 @@ public class StructureManager2 : MonoBehaviour
     int randomColor = 0;
 
     private void Start() {
-        PlaceStructure();
+        PlaceStructure(true);
         isConnect = false;
     }
 
@@ -42,7 +41,7 @@ public class StructureManager2 : MonoBehaviour
 
         foreach (var d in structureDictionary.Keys)
         {
-            CheckConnection(d, isRemove);
+            CheckConnection(d);
         }
     }
 
@@ -51,9 +50,16 @@ public class StructureManager2 : MonoBehaviour
         return randomPrefab;
     }
 
-    private void PlaceStructure() {
+    private void PlaceStructure(bool initial = false) {
         Vector3Int housePos = placementManager.GetRandomGridPosition();
         Vector3Int specialPos = placementManager.GetRandomAdjectionGridPosition(housePos, 10);
+
+        if (initial)
+        {
+            housePos = new Vector3Int(UnityEngine.Random.Range(5,10),0,UnityEngine.Random.Range(5,10));
+            specialPos = new Vector3Int(UnityEngine.Random.Range(10,15),0,UnityEngine.Random.Range(10,15));
+        }
+
         if (CheckPositionBeforePlacement(housePos) && CheckPositionBeforePlacement(specialPos) && housePos != specialPos)
         {
             structureCount++;
@@ -66,8 +72,8 @@ public class StructureManager2 : MonoBehaviour
         }
     }
 
-    public int CheckConnection(Vector3Int position, bool isRemove) {
-         if (isRemove && checkedStructureToConnect.Contains(position))
+    public int CheckConnection(Vector3Int position) {
+         if (checkedStructureToConnect.Contains(position))
         {
              if (placementManager.GetPathBetween(position, structureDictionary[position], true).Count <= 0)
             {
@@ -143,10 +149,6 @@ public class StructureManager2 : MonoBehaviour
         }
 
         return true;
-    }
-
-    public void SetIsRemove(bool isRemove) {
-        this.isRemove = isRemove;
     }
 
      public int GetNumberOfConnections() { //buat menghitung langkah

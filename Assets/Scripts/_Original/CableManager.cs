@@ -54,7 +54,7 @@ public class CableManager : MonoBehaviour
 
             foreach (var positionToFix in cablePositionToCheck)  // cek arah dari jalan buat diperbaiki
             {
-                cableFixer.FixCableAtPosition(placementManager, positionToFix, cableColor);
+                cableFixer.FixCableAtPosition(placementManager, positionToFix, placementManager.grid[positionToFix.x, positionToFix.z].Item2);
             }
 
             cablePositionToCheck.Clear();    // reset list jalan yang buat diperbaiki
@@ -150,7 +150,7 @@ public class CableManager : MonoBehaviour
         }
         foreach (var positionToFix in cablePositionToCheck)
         {
-            cableFixer.FixCableAtPosition(placementManager, positionToFix, cableColor);
+            cableFixer.FixCableAtPosition(placementManager, positionToFix, placementManager.grid[positionToFix.x, positionToFix.z].Item2);
         }
     }
 

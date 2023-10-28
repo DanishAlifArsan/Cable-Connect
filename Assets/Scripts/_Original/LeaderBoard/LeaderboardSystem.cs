@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class LeaderboardSystem 
 {
-    static string path = Application.persistentDataPath + "/savefile.save";
+    static string path = Application.persistentDataPath + "/leaderboard.save";
    public static void SaveGame(LeaderBoardManager leaderBoardManager) {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path,FileMode.Create);
