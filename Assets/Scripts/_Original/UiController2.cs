@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UiController2 : MonoBehaviour
@@ -14,6 +15,11 @@ public class UiController2 : MonoBehaviour
     [SerializeField] GameObject[] menus;
 
     private void Start() {
+        Time.timeScale = 1;
+        if (placeCableButton == null)
+        {
+            return;
+        }
         buttonList = new List<Button>{placeCableButton, RemoveCableButton};
 
         placeCableButton.onClick.AddListener(()=> {
@@ -62,4 +68,14 @@ public class UiController2 : MonoBehaviour
             menus[0].SetActive(false);
         }   
     }
+
+    public void ChangeScene(int scene) {
+        SceneManager.LoadScene(scene);
+    }
+
+    public void ExitGame() {
+        Debug.Log("Exit Game");
+        Application.Quit();
+    }
+
 }
