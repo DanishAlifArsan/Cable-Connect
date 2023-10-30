@@ -22,6 +22,7 @@ public class LeaderBoardManager : MonoBehaviour
     }
   
     public void SaveToLeaderBoard() {
+        LoadGame();
         if (string.IsNullOrWhiteSpace(nameInput.text))
         {
             Debug.Log("game not saved");
