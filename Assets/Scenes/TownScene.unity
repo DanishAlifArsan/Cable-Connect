@@ -16228,7 +16228,7 @@ GameObject:
   - component: {fileID: 1105255622}
   - component: {fileID: 1105255621}
   m_Layer: 5
-  m_Name: score
+  m_Name: score 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20175,7 +20175,7 @@ GameObject:
   - component: {fileID: 1326526663}
   - component: {fileID: 1326526662}
   m_Layer: 5
-  m_Name: score
+  m_Name: score 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29932,7 +29932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1910467054
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32399,7 +32399,7 @@ GameObject:
   - component: {fileID: 2057455753}
   - component: {fileID: 2057455752}
   m_Layer: 5
-  m_Name: score
+  m_Name: score 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
