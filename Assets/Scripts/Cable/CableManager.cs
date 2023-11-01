@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using SVS;
 using UnityEngine;
 
@@ -69,7 +68,6 @@ public class CableManager : MonoBehaviour
                 }   
                 placementManager.PlaceTemporaryStructure(tempPos, cableFixer.straight, CellType2.Road, cableColor);   // kalau kosong, generate preview
             }
-            // FixCablePrefabs();  // apply pergantian arah jalan
         }
         
         FixCablePrefabs(false);  // apply pergantian arah jalan
@@ -86,11 +84,6 @@ public class CableManager : MonoBehaviour
             return false;
         }
 
-        // if ( GetCableColor(position) == 0 || (placementManager.GetNeighborTypeFor(position, CellType2.Road).Count > 0  && IsNeighborColorContains(position, cableColor))) //check apakah disekitar bangunan ada jalan
-        // {
-        //     return false;
-        // }
-
         if (GetCableColor(position) == 0)
         {
             return false;
@@ -105,15 +98,7 @@ public class CableManager : MonoBehaviour
 
     private int GetCableColor(Vector3Int position) {    // generate warna dari kabel
         var colorsToCheck = CheckNeighborColor(position);
-        // int[] colors = {0,0,0,0,0,0,0,0,0,0};
-        int color = 0;
-
-        // foreach (var c in colorsToCheck)
-        // {
-        //     colors[c]++;
-        // }
-
-        // return Array.IndexOf(colors, colors.Max());
+        int color = 0;;
             
         foreach (var c in colorsToCheck)
         {
@@ -125,19 +110,6 @@ public class CableManager : MonoBehaviour
 
         return color;
     }  
-
-    private bool IsNeighborColorContains(Vector3Int position, int color) {
-        var colorsToCheck = CheckNeighborColor(position);
-        bool output = false;
-        foreach (var c in colorsToCheck)
-        {
-            if (c != color && c != 0)
-            {
-                output = true;
-            }           
-        }
-        return output;
-    }
 
     private void FixCablePrefabs(bool isRemove)   // fungsi buat ganti arah road
     {
@@ -171,10 +143,6 @@ public class CableManager : MonoBehaviour
     public void FinishPlacing() {   // kalau sudah selesai menaruh jalan
         placementMode = false;  // set placement mode jadi false
         placementManager.AddTempStructureToDictionary();    // memasukkan jalan ke list
-        if (tempPlacement.Count > 0)
-        {
-            // AudioPlayer.instance.PlaySound(0);   
-        }
         tempPlacement.Clear();
         startPosition = Vector3Int.zero; // reset posisi ujung jalan
     }
@@ -206,7 +174,6 @@ public class CableManager : MonoBehaviour
             AudioPlayer.instance.PlaySound(2, true); 
         } else {
             AudioPlayer.instance.PlaySound(2, true); 
-            // placementManager.RemoveAllTempStructures(); // menghapus preview
             tempRemove.Clear();
 
             cablePositionToCheck.Clear();    // reset list jalan yang buat diperbaiki
@@ -227,10 +194,6 @@ public class CableManager : MonoBehaviour
     {
         removeMode = false;  // set placement mode jadi false
         placementManager.RemoveTempStructureFromDictionary();    // memasukkan jalan ke list
-        if (tempRemove.Count > 0)
-        {
-            // AudioPlayer.instance.PlaySound(2);   
-        }
         tempRemove.Clear();
         startPosition = Vector3Int.zero; // reset posisi ujung jalan
     }

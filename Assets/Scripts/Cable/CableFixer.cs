@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class CableFixer : MonoBehaviour
@@ -10,28 +8,9 @@ public class CableFixer : MonoBehaviour
     public GameObject straight, corner, threeWay, fourWay;
 
     public void FixCableAtPosition(PlacementManager2 placementManager, Vector3Int tempPos, int color) { 
-        // var result = placementManager.GetNeighborTypeFor(tempPos); 
         var result = placementManager.GetNeighborColorFor(tempPos); 
         int cableCount = 0;
         cableCount = result.Where(x => x == color).Count(); 
-
-        //ditambah fungsi buat cek kalau diagonal
-
-        // if (cableCount == 0 || cableCount == 1)
-        // {
-        //     CreateDeadEnd(placementManager, result, tempPos);
-        // } else if (cableCount == 2) 
-        // {
-        //     if (CreateStraightCable(placementManager, result, tempPos))  
-        //     {
-        //       return;   
-        //     }
-        //     CreateCorner(placementManager, result, tempPos);
-        // } else if (cableCount == 3) {
-        //     Create3Way(placementManager, result, tempPos);
-        // } else {
-        //     Create4Way(placementManager, result, tempPos); 
-        // }
 
         if (cableCount == 0 || cableCount == 1)
         {
@@ -123,10 +102,5 @@ public class CableFixer : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-     private bool CreateDiagonalCable(PlacementManager2 placementManager, CellType2[] result, Vector3Int tempPos)   // untuk cek apakah jalannya diagonal
-    {
-        throw new NotImplementedException();
     }
 }

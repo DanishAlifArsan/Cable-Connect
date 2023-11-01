@@ -127,7 +127,6 @@ public class PlacementManager2 : MonoBehaviour
         foreach (var structure in tempRoad)
         {
             structureDictionary.Add(structure.Key, structure.Value);
-            // DestroyNatureAt(structure.Key); // menghancurkan pohon ketika preview dibuat
         }
         tempRoad.Clear();
     }
@@ -138,17 +137,7 @@ public class PlacementManager2 : MonoBehaviour
         StructureModel2 structureModel = CreateANewStructureModel(position, structurePrefab, type);  // membuat bangunan
         structureDictionary.Add(position,structureModel);  // menambahkan bangunan ke dictionary
         structureDictionary[position].SwapModel(structurePrefab, Quaternion.identity, randomColor);
-        // DestroyNatureAt(position); // menghancurkan pohon ketika bangunan dibuat
     }
-
-    // private void DestroyNatureAt(Vector3Int position)   // buat menghancurkan tanaman
-    // {
-    //     RaycastHit[] hits = Physics.BoxCastAll(position+new Vector3(0,0.5f,0), new Vector3(0.5f,0.5f,0.5f),transform.up,Quaternion.identity, 1f, 1 << LayerMask.NameToLayer("Nature")); // mendeteksi tanaman
-    //     foreach (var item in hits)
-    //     {
-    //         Destroy(item.collider.gameObject); // menghancurkan tanaman
-    //     }
-    // }
 
     internal Vector3Int GetRandomGridPosition() {   // buat cari grid random
         Vector3Int randomPos = new Vector3Int(UnityEngine.Random.Range(0, width - 1), 0, UnityEngine.Random.Range(0, height - 1));
@@ -178,7 +167,6 @@ public class PlacementManager2 : MonoBehaviour
         foreach (var structure in tempRoad)
         {
             structureDictionary.Remove(structure.Key);
-            // DestroyNatureAt(structure.Key); // menghancurkan pohon ketika preview dibuat
         }
         tempRoad.Clear();
     }
