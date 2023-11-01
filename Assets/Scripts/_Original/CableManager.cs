@@ -72,7 +72,7 @@ public class CableManager : MonoBehaviour
             // FixCablePrefabs();  // apply pergantian arah jalan
         }
         
-        FixCablePrefabs();  // apply pergantian arah jalan
+        FixCablePrefabs(false);  // apply pergantian arah jalan
     }
 
     private bool CheckPositionBeforePlacement(Vector3Int position)  // check grid yang akan ditaruh bangunan
@@ -86,7 +86,12 @@ public class CableManager : MonoBehaviour
             return false;
         }
 
-        if ( GetCableColor(position) == 0 || (placementManager.GetNeighborTypeFor(position, CellType2.Road).Count > 0  && IsNeighborColorContains(position, cableColor))) //check apakah disekitar bangunan ada jalan
+        // if ( GetCableColor(position) == 0 || (placementManager.GetNeighborTypeFor(position, CellType2.Road).Count > 0  && IsNeighborColorContains(position, cableColor))) //check apakah disekitar bangunan ada jalan
+        // {
+        //     return false;
+        // }
+
+        if (GetCableColor(position) == 0)
         {
             return false;
         }
@@ -134,9 +139,18 @@ public class CableManager : MonoBehaviour
         return output;
     }
 
-    private void FixCablePrefabs()   // fungsi buat ganti arah road
+    private void FixCablePrefabs(bool isRemove)   // fungsi buat ganti arah road
     {
-        foreach (var tempPos in tempPlacement)
+        List<Vector3Int> cableToFix = new List<Vector3Int>();
+
+        if (!isRemove)
+        {
+            cableToFix = tempPlacement;
+        } else {
+            cableToFix = tempRemove;
+        }
+        
+        foreach (var tempPos in cableToFix)
         {
             cableFixer.FixCableAtPosition(placementManager, tempPos, cableColor);
             var neighbors = placementManager.GetNeighborTypeFor(tempPos, CellType2.Road);
@@ -176,6 +190,12 @@ public class CableManager : MonoBehaviour
         {
             // reset isi dari list
             tempRemove.Clear();
+
+            foreach (var positionToFix in cablePositionToCheck)  // cek arah dari jalan buat diperbaiki
+            {
+                cableFixer.FixCableAtPosition(placementManager, positionToFix, placementManager.grid[positionToFix.x, positionToFix.z].Item2);
+            }
+
             cablePositionToCheck.Clear();
 
             removeMode = true; 
@@ -200,7 +220,7 @@ public class CableManager : MonoBehaviour
             
         }
         
-        FixCablePrefabs();  // apply pergantian arah jalan
+        FixCablePrefabs(true);  // apply pergantian arah jalan
     }
 
     internal void FinishRemove()

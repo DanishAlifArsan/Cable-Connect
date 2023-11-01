@@ -58,7 +58,10 @@ public class PlacementManager2 : MonoBehaviour
     public void ModifyStructureModel(Vector3Int position, GameObject newModel, Quaternion rotation, int randomColor) {   // mengganti arah jalan menghadap
         if (tempRoad.ContainsKey(position))
         {
-            tempRoad[position].SwapModel(newModel,rotation,randomColor); // mengganti arah preview jalan
+            if (tempRoad[position] != null)
+            {
+                tempRoad[position].SwapModel(newModel,rotation,randomColor); // mengganti arah preview jalan
+            }
         } else if (structureDictionary.ContainsKey(position))
         {
             structureDictionary[position].SwapModel(newModel,rotation,randomColor); // mengganti arah jalan yang sebenarnya
