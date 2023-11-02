@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class SettingMenu : MonoBehaviour
 {
      public AudioMixer audioMixer;
-     public float sfx, bgm;
+    //  public float sfx, bgm;
      public Slider sfxSlider, bgmSlider;
 
      // private void Awake() {
@@ -25,11 +25,6 @@ public class SettingMenu : MonoBehaviour
       private void OnDisable() {
         PlayerPrefs.SetFloat("bgm", bgmSlider.value);
         PlayerPrefs.SetFloat("sfx", sfxSlider.value);
-    }
-
-    private void SaveVolume()
-    {
-        throw new NotImplementedException();
     }
 
     //    private void SaveGame() {

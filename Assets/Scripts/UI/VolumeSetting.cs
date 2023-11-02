@@ -6,9 +6,9 @@ public class VolumeSetting : MonoBehaviour
 {
     public SettingMenu settingMenu;
 
-    // private float sfx, bgm;
+    public float sfx, bgm;
 
-    private void Awake() {
+    private void Start() {
         LoadVolume();
     }
 
@@ -20,11 +20,32 @@ public class VolumeSetting : MonoBehaviour
     // }
 
     private void LoadVolume() {
-        // bgm = PlayerPrefs.GetFloat("bgm");
-        // sfx = PlayerPrefs.GetFloat("sfx");
+        bgm = PlayerPrefs.GetFloat("bgm", 0.75f);
+        sfx = PlayerPrefs.GetFloat("sfx", 0.75f);
         // settingMenu.SetBGMVolume(bgm);
         // settingMenu.SetSFXVolume(sfx);
-        settingMenu.sfxSlider.value = PlayerPrefs.GetFloat("sfx");
-        settingMenu.bgmSlider.value = PlayerPrefs.GetFloat("bgm");
+        settingMenu.sfxSlider.value = sfx;
+        settingMenu.bgmSlider.value = bgm;
     }
+
+    // private void SaveGame() {
+    //     SettingSystem.SaveGame(this);
+    // }
+
+    // private void LoadGame() {
+    //     SettingModel saveData = SettingSystem.LoadGame();
+    //     if (saveData != null)
+    //     {
+    //         sfx = saveData.sfx;
+    //         bgm = saveData.bgm;
+    //         settingMenu.SetBGMVolume(bgm);
+    //         settingMenu.SetSFXVolume(sfx);
+    //         settingMenu.sfxSlider.value = sfx;
+    //         settingMenu.bgmSlider.value = bgm;
+    //     }   
+    // }
+
+    // private void OnDisable() {
+    //     SaveGame();
+    // }
 }

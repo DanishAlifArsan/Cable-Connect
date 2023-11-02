@@ -5,7 +5,7 @@ using UnityEngine;
 public static class SettingSystem 
 {
     static string path = Application.persistentDataPath + "/setting.save";
-   public static void SaveGame(SettingMenu setting) {
+   public static void SaveGame(VolumeSetting setting) {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path,FileMode.Create);
 
