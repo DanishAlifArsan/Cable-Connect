@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.44460663, g: 0.5030038, b: 0.6509434, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 4656c3fc60428da44aae593ee346ab39, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18090543, g: 0.22645362, b: 0.30723208, a: 1}
+  m_IndirectSpecularColor: {r: 0.56614023, g: 0.8645239, b: 0.92282367, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1584,7 +1584,7 @@ Camera:
   m_GameObject: {fileID: 336703149}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.3207547, g: 0.31288713, b: 0.31288713, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -2509,7 +2509,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: db7f957a92363b94ab064266c461f4c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4246,6 +4246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 8439730687206670581}
+  sfx: 0
+  bgm: 0
 --- !u!1 &1315634471
 GameObject:
   m_ObjectHideFlags: 0
@@ -5850,7 +5852,7 @@ MonoBehaviour:
   - {fileID: 5404440512537029995, guid: b4685e1e6248e5c4db83ae173417a76c, type: 3}
   - {fileID: 5404440512537029995, guid: feb8c45c2f03ed04e98acc8e9286f29b, type: 3}
   placementManager: {fileID: 1287732583}
-  structureSpawnTimer: 7
+  structureSpawnTimer: 2
   isConnect: 0
 --- !u!1 &1921795279
 GameObject:
@@ -6333,6 +6335,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1410666092}
     m_Modifications:
+    - target: {fileID: 3294993123426172593, guid: f3394a29b17cbb44fa86689b4ccb453e,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294993123426172593, guid: f3394a29b17cbb44fa86689b4ccb453e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294993123426172593, guid: f3394a29b17cbb44fa86689b4ccb453e,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933016121079727326, guid: f3394a29b17cbb44fa86689b4ccb453e,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933016121079727326, guid: f3394a29b17cbb44fa86689b4ccb453e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6492391060668460795, guid: f3394a29b17cbb44fa86689b4ccb453e,
         type: 3}
       propertyPath: m_AnchorMax.x
